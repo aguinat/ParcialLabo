@@ -74,7 +74,7 @@ int main(void) {
 					if (validacion == 1) {
 						switch (opcion) {
 						case 1:
-							GetNumberWithRange("1. Opcion Carga Manual\n2. Opcion Carga Forzada\n", "\nOpcion invalida, vuelva a intentarlo: ", REIN, 1, 2, &opcionSubMenu);
+							GetNumberWithRange("1. Opcion Carga Manual\n2. Opcion Carga Forzada\nElija la forma de carga: ", "\nOpcion invalida, vuelva a intentarlo: ", REIN, 1, 2, &opcionSubMenu);
 							switch(opcionSubMenu){
 							case 1:
 								censistasCargados = CargarCensistas(censistas, LEN, &idCensista, REIN);
@@ -97,7 +97,7 @@ int main(void) {
 							}
 							break;
 						case 4:
-							GetNumberWithRange("1. Opcion Carga Manual\n2. Opcion Carga Forzada\n", "\nOpcion invalida, vuelva a intentarlo: ", REIN, 1, 2, &opcionSubMenu);
+							GetNumberWithRange("1. Opcion Carga Manual\n2. Opcion Carga Forzada\nElija la forma de carga: ", "\nOpcion invalida, vuelva a intentarlo: ", REIN, 1, 2, &opcionSubMenu);
 							switch(opcionSubMenu){
 							case 1:
 								zonaCargada = CargarZonas(zonas, LENZONAS, &idZona, REIN, localidades, LENLOCALIDAD);
@@ -142,8 +142,6 @@ int main(void) {
 					}
 
 				} while (opcion != 9);
-
-
 
 	return EXIT_SUCCESS;
 }

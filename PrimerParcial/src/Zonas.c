@@ -128,6 +128,7 @@ int CargarUnaZona(eZonas list[], int reintentos, int index, eLocalidades listLoc
 					strcpy(list[index].calle_2, auxZona.calle_2);
 					strcpy(list[index].calle_3, auxZona.calle_3);
 					strcpy(list[index].calle_4, auxZona.calle_4);
+					list[index].idLocalidad = auxZona.idLocalidad;
 					list[index].estado = 1;
 					list[index].idCensista = 0;
 					cargaCompleta = 1;
@@ -189,10 +190,13 @@ int CargaForzadaZonas(eZonas list[], int len, int* id){
 	cargaExitosa = 0;
 	cantidadZonas = 3;
 	idAux = *id;
+	int contadorCargaForzada;
+
+	contadorCargaForzada = 0;
 
 	if (len > cantidadZonas && list != NULL){
 		for (i = 0; i<len; i++){
-			if(list[i].isEmpty == 1 && i<cantidadZonas){
+			if(list[i].isEmpty == 1 && contadorCargaForzada<cantidadZonas){
 				idAux++;
 				list[i].idZona = idAux;
 				strcpy(list[i].calle_1, "Azara");
@@ -204,6 +208,7 @@ int CargaForzadaZonas(eZonas list[], int len, int* id){
 				list[i].idLocalidad = 1;
 				list[i].isEmpty = 0;
 				cargaExitosa = 1;
+				contadorCargaForzada++;
 			}
 		}
 	}

@@ -142,8 +142,8 @@ int CargarUnCensista(eCensistas list[], int reintentos, int index){
 
 			if(datoIncorrecto != 1){
 				auxCensista.idCensista = 0;
-				auxCensista.estadoCensista = 1;
-				printf("El id del censista de cargara luego de confirmar los datos.\n\nDatos del censista:\n\n%-5s %-15s %-20s %-30s %-15s %-25s %-20s %-20s\n", "ID", "Nombre", "Apellido", "Fecha de Nacimiento", "Edad", "Domicilio", "Estado", "Zona");
+				auxCensista.estadoCensista = 3;
+				printf("\nEl id del censista de cargara luego de confirmar los datos.\nDatos del censista:\n\n%-5s %-15s %-20s %-30s %-15s %-25s %-20s\n", "ID", "Nombre", "Apellido", "Fecha de Nacimiento", "Edad", "Domicilio", "Estado");
 				MostrarUnCensista(auxCensista);
 				ConfirmarContinuar("Confirme la carga del Censista (SI/NO): ", "Ingrese una respuesta valida", &confirma, reintentos);
 
@@ -326,14 +326,17 @@ int CargaForzadaCensistas(eCensistas list[], int len, int* id){
 	cargaExitosa = 0;
 	cantidadCensistas = 3;
 	idAux = *id;
+	int contadorCargaForzada;
+
+	contadorCargaForzada = 0;
 
 	if (len > cantidadCensistas && list != NULL){
 		for (i = 0; i<len; i++){
-			if(list[i].isEmpty == 1 && i<cantidadCensistas){
+			if(list[i].isEmpty == 1 && contadorCargaForzada<cantidadCensistas){
 				idAux++;
 				list[i].idCensista = idAux;
-				strcpy(list[i].nombre, "Mariano");
-				strcpy(list[i].apellido, "Cañete");
+				strcpy(list[i].nombre, "Pepe");
+				strcpy(list[i].apellido, "Gonzales");
 				list[i].fechaDeNacimiento.dia = 7;
 				list[i].fechaDeNacimiento.mes = 10;
 				list[i].fechaDeNacimiento.anio = 1998;
@@ -343,6 +346,7 @@ int CargaForzadaCensistas(eCensistas list[], int len, int* id){
 				list[i].estadoCensista = 3;
 				list[i].isEmpty = 0;
 				cargaExitosa = 1;
+				contadorCargaForzada++;
 			}
 		}
 	}
