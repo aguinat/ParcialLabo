@@ -33,5 +33,8 @@ int CargarUnaZona(eZonas list[], int reintentos, int index, eLocalidades listLoc
 int CargarZonas(eZonas list[], int len, int* id, int reintentos,eLocalidades listLocalidades[], int lenLocalidades);
 int BuscarZonaPorID(eZonas list[], int len, int id, int* index);
 int CargaForzadaZonas(eZonas list[], int len, int* id);
+int ContarTotalDeCensadosPorTipo(eZonas listZonas[], int lenZonas, int tipo);
+int TotalCensadosPorZonaYCensista(eZonas listZonas[], int lenZonas, int idCensista);
+void ObtenerLocalidadConMasAusentes(eZonas listZonas[], int lenZonas, eLocalidades listLocalidades[], int lenLocalidades);
 
 #endif /* ZONAS_H_ */

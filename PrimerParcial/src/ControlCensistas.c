@@ -204,4 +204,67 @@ int CompletarDatosZona(eZonas listZonas[], int lenZonas, eCensistas listCensista
 	return zonaActualizada;
 }
 
+void CantidadDeCensistasPorEstadoYZona(eCensistas listCensista[],int lenCensista, eZonas listZona[], int lenZona, eLocalidades listLocalidades[],int lenLocalidades){
+	int i;
+	int x;
+	int contadorCensistas;
+
+	contadorCensistas = 0;
+
+	for(i = 0; i<lenCensista; i++){
+		if(listCensista[i].estadoCensista == 1){
+			for(x = 0; x<lenZona; x++){
+				if(listZona[x].idCensista == listCensista[i].idCensista && listZona[x].estado == 1){
+					contadorCensistas++;
+				}
+			}
+		}
+	}
+	printf("La cantidad de censistas con estado Activo y Zona pendiente, son: %d", contadorCensistas);
+
+}
+
+void ObtenerCensistaConMasCensados(eCensistas listCensista[], int lenCensista,eZonas listZonas[], int lenZonas){
+	int i;
+	int maxCensados;
+	int censados;
+	int censistaMayor;
+
+	censados = 0;
+	maxCensados = 0;
+
+	for(i=0; i<lenCensista; i++){
+		if(listCensista[i].isEmpty == 0 && listCensista[i].idCensista != 0){
+			censados = TotalCensadosPorZonaYCensista(listZonas, lenZonas, listCensista[i].idCensista);
+			if(maxCensados<censados){
+				maxCensados = censados;
+				censistaMayor = listCensista[i].idCensista;
+			}
+		}
+
+	}
+
+	for(i=0; i<lenCensista; i++){
+		if(listCensista[i].idCensista == censistaMayor){
+			printf("La zona con mayor cantidad de censados es, %d y corresponde a, %s %s", maxCensados, listCensista[i].nombre, listCensista[i].apellido);
+		}
+	}
+
+}
+
+void MostrarCensistasOrdenadosPorZona(eCensistas listCensista[], int lenCensista,eZonas listZonas[], int lenZonas, eLocalidades listLocalidades[],int lenLocalidades){
+	int i;
+	int y;
+
+	OrdenarCensistasPorApellidoYNombre(listCensista, lenCensista, 0);
+
+	for(i = 0; i<lenZonas; i++){
+		for(y = 0; y<lenLocalidades; y++){
+			if(listLocalidades[y].idLocalidad == listZonas[i].idLocalidad){
+				printf("\nLocalidad: &s: ",listLocalidades[y].localidad);
+			}
+		}
+	}
+
+}
 #endif /* CONTROLCENSISTAS_C_ */

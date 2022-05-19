@@ -360,3 +360,47 @@ int CargaForzadaCensistas(eCensistas list[], int len, int* id){
 
 }
 
+int OrdenarCensistasPorApellidoYNombre(eCensistas listCensistas[], int lenCensistas, int order){
+	int ordenarAcedenteDecedente;
+	int i;
+	int estaOrdenado;
+	int lenAux;
+	eCensistas auxCensista;
+
+	if(listCensistas!=NULL && lenCensistas>0){
+			if(order==1){
+				ordenarAcedenteDecedente =-1;
+			}
+			else{
+				ordenarAcedenteDecedente = 2;
+			}
+			lenAux = lenCensistas;
+			do{
+				estaOrdenado = 1;
+				for(i=0;i<lenAux;i++){
+					if(listCensistas[i].isEmpty == 0 && listCensistas[i+1].isEmpty == 0){
+							if(stricmp(listCensistas[i].apellido,listCensistas[i+1].apellido)== 0){
+								if(stricmp(listCensistas[i].nombre,listCensistas[i+1].nombre) == ordenarAcedenteDecedente){
+									auxCensista = listCensistas[i];
+									listCensistas[i]=listCensistas[i+1];
+									listCensistas[i+1]=auxCensista;
+									estaOrdenado = 0;
+								}
+							}else{
+								if(stricmp(listCensistas[i].apellido,listCensistas[i+1].apellido) == ordenarAcedenteDecedente){
+									auxCensista = listCensistas[i];
+									listCensistas[i]=listCensistas[i+1];
+									listCensistas[i+1]=auxCensista;
+									estaOrdenado = 0;
+								}
+							}
+						}
+					}
+				}while(estaOrdenado == 0 );
+			}
+		if(estaOrdenado == 1){
+			printf("\n***Datos ordenados****\n");
+		}
+		return estaOrdenado;
+}
+

@@ -30,17 +30,17 @@ int main(void) {
 	int zonaCargada;
 	int cargaForzadaZonas;
 
-	eCensistas censistas[LEN];// = {{1,"Andre", "Luizaga", 20,03,2020, 30, "iriarte", 1944,1,0}, {2,"Sabrina", "Soto", 04,05,1993, 29, "avbrown", 633,1,0},
-			//{3,"Mariano", "Cañete", 20,03,2020, 30, "California", 2050,3,0}};
-	eZonas zonas[LENZONAS];// = {{1,1,"Iriarte", "Herrera", "Montes De Oca", "California",1,0,0,0,1,0}, {2,2,"Montes de oca", "Azara", "California", "Rocha",2,0,0,0,1,0},
-			//{3,0,"Suarez", "Vieytes", "Rocha", "Azara",1,0,0,0,1,0}};
+	eCensistas censistas[LEN] = {{2,"Sabrina", "Donat", 04,05,1993, 29, "Av Brown ", 633,1,0}, {1,"Andre", "Luizaga", 20,03,2020, 30, "iriarte", 1944,1,0},
+			{3,"Mariano", "Cañete", 20,03,2020, 30, "California", 2050,3,0},{4,"Susana", "Rojas", 20,03,2020, 30, "Rocha", 2050,3,0}};
+	eZonas zonas[LENZONAS] = {{1,3,"Iriarte", "Herrera", "Montes De Oca", "California",2,10,20,0,2,0}, {2,1,"Montes de oca", "Azara", "California", "Rocha",3,50,10,50,2,0},
+			{3,0,"Suarez", "Vieytes", "Rocha", "Azara",2,20,100,30,2,0}};
 
 	idCensista = 0;
 	idZona = 0;
-	InitStructCensistas(censistas, LEN);
-	InitStructZonas(zonas, LENZONAS);
+	//InitStructCensistas(censistas, LEN);
+	//InitStructZonas(zonas, LENZONAS);
 
-	eLocalidades localidades[LENLOCALIDAD]={{1,"Avellaneda"},{2,"Barracas"},{3,"La Boca"}, {4,"Lanus"}, {5,"Palermo"}};
+	eLocalidades localidades[LENLOCALIDAD]={{1,"Avellaneda"},{2,"Banfield"},{3,"Lomas de Zamora"}, {4,"Lanus"}, {5,"Barracas"}};
 
 	do {
 		validacion = GetNumberWithRange("***********************\n"
@@ -53,7 +53,8 @@ int main(void) {
 								"6.Cargar datos\n"
 								"7.Mostrar censistas\n"
 								"8.Mostrar zonas\n"
-								"9.Salir\n"
+								"9.Informes\n"
+								"10.Salir\n"
 								"***********************\n"
 								"Ingrese una opcion: ",
 
@@ -67,9 +68,10 @@ int main(void) {
 								"6.Cargar datos\n"
 								"7.Mostrar censistas\n"
 								"8.Mostrar zonas\n"
-								"9.Salir\n"
+								"9.Informes\n"
+								"10.Salir\n"
 								"***********************\n"
-								"\nOpcion invalida, vuelva a intentarlo: ", REIN, 1, 9, &opcion);
+								"\nOpcion invalida, vuelva a intentarlo: ", REIN, 1, 10, &opcion);
 								printf("\n");
 					if (validacion == 1) {
 						switch (opcion) {
@@ -135,9 +137,27 @@ int main(void) {
 								printf("NO CUENTA CON DATOS DISPONIBLES PARA OPERAR.\n\n");
 							}
 							break;
+						case 9:
+							GetNumberWithRange("1.Cantidad de censistas en estado Activo con zona Pendiente.\n2. Informar nombre de localidad con más casas ausentes.\n3.Informar el censista cuya zona fue la más censada.\n4.Mostrar el listado de censistas ordenados alfabéticamente por apellido y nombre.\nElija la forma de carga: ", "\nOpcion invalida, vuelva a intentarlo: ", REIN, 1, 4, &opcionSubMenu);
+							switch(opcionSubMenu){
+							case 1:
+								CantidadDeCensistasPorEstadoYZona(censistas, LEN, zonas, LENZONAS, localidades, LENLOCALIDAD);
+								break;
+							case 2:
+								ObtenerLocalidadConMasAusentes(zonas, LENZONAS, localidades, LENLOCALIDAD);
+								break;
+							case 3:
+								ObtenerCensistaConMasCensados(censistas, LEN, zonas, LENZONAS);
+								break;
+							case 4:
+								OrdenarCensistasPorApellidoYNombre(censistas, LEN, 0);
+								break;
+							}
+							//TotalCensadosPorLocalidad(zonas, LENZONAS, localidades, LENLOCALIDAD, 2);
+							break;
 						}
 					}else{
-						opcion = 9;
+						opcion = 10;
 						printf("\nEl programa finalizo debido a que no se ingreso ninguna opcion valida\n");
 					}
 

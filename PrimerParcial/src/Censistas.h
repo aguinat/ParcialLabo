@@ -38,7 +38,6 @@ int CargarUnCensista(eCensistas list[], int reintentos, int index);
 int CargarCensistas(eCensistas list[], int len, int* id, int reintentos);
 int ModificarDatosCensista(eCensistas list[], int len, int reintentos);
 int CargaForzadaCensistas(eCensistas list[], int len, int* id);
-
-
+int OrdenarCensistasPorApellidoYNombre(eCensistas listCensistas[], int lenCensistas, int order);
 
 #endif /* CENSISTAS_H_ */

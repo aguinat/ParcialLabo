@@ -221,3 +221,109 @@ int CargaForzadaZonas(eZonas list[], int len, int* id){
 	return cargaExitosa;
 
 }
+
+int ContarTotalDeCensadosPorTipo(eZonas listZonas[], int lenZonas, int tipo){
+	int i;
+	int totalCensadosPorTipo;
+
+	totalCensadosPorTipo = 0;
+
+	for(i = 0; i<lenZonas; i++){
+		if(listZonas[i].estado == 2 && listZonas[i].censadosVirtual>0 && tipo == 1){
+			totalCensadosPorTipo = listZonas[i].censadosVirtual + totalCensadosPorTipo;
+		}
+		if(listZonas[i].estado == 2 && listZonas[i].censadosInSitu>0 && tipo == 2){
+			totalCensadosPorTipo = listZonas[i].censadosInSitu + totalCensadosPorTipo;
+		}
+	}
+
+	return totalCensadosPorTipo;
+}
+
+void ObtenerLocalidadConMasAusentes(eZonas listZonas[], int lenZonas, eLocalidades listLocalidades[], int lenLocalidades){
+	int i;
+	int x;
+	int contadorLoc1;
+	int contadorLoc2;
+	int contadorLoc3;
+	int contadorLoc4;
+	int contadorLoc5;
+	int idLocalidadMax;
+	int contadorMax;
+
+	contadorLoc1 = 0;
+	contadorLoc2 = 0;
+	contadorLoc3 = 0;
+	contadorLoc4 = 0;
+	contadorLoc5 = 0;
+	contadorMax = 0;
+
+
+	for(i = 0; i<lenZonas; i++){
+		if(listZonas[i].estado == 2 && listZonas[i].ausentes>0){
+			if(listZonas[i].idLocalidad == 1){
+				contadorLoc1 = listZonas[i].ausentes+ contadorLoc1;
+				if(contadorMax<contadorLoc1){
+					contadorMax = contadorLoc1;
+					idLocalidadMax = listZonas[i].idLocalidad;
+				}
+			}
+			if(listZonas[i].idLocalidad == 2){
+				contadorLoc2 = listZonas[i].ausentes+ contadorLoc2;
+				if(contadorMax<contadorLoc2){
+					contadorMax = contadorLoc2;
+					idLocalidadMax = listZonas[i].idLocalidad;
+				}
+			}
+			if(listZonas[i].idLocalidad == 3){
+				contadorLoc3 = listZonas[i].ausentes+ contadorLoc3;
+				if(contadorMax<contadorLoc3){
+					contadorMax = contadorLoc3;
+					idLocalidadMax = listZonas[i].idLocalidad;
+				}
+			}
+			if(listZonas[i].idLocalidad == 4){
+				contadorLoc4 = listZonas[i].ausentes+ contadorLoc4;
+				if(contadorMax<contadorLoc4){
+					contadorMax = contadorLoc4;
+					idLocalidadMax = listZonas[i].idLocalidad;
+				}
+			}
+			if(listZonas[i].idLocalidad == 5){
+				contadorLoc5 = listZonas[i].ausentes+ contadorLoc5;
+				if(contadorMax<contadorLoc5){
+					contadorMax = contadorLoc5;
+					idLocalidadMax = listZonas[i].idLocalidad;
+				}
+			}
+		}
+	}
+
+	for(x = 0; x<lenLocalidades; x++){
+		if(listLocalidades[x].idLocalidad == idLocalidadMax){
+			printf("La localidad %s, tiene mayor numero de ausentes: %d.",listLocalidades[x].localidad, contadorMax);
+		}
+	}
+
+}
+
+int TotalCensadosPorZonaYCensista(eZonas listZonas[], int lenZonas, int idCensista){
+	int i;
+	int totalCensados;
+
+	totalCensados = 0;
+
+	for(i = 0; i<lenZonas; i++){
+		if(listZonas[i].idCensista == idCensista && listZonas[i].estado == 2 && (listZonas[i].censadosVirtual > 0 || listZonas[i].censadosInSitu > 0)){
+				totalCensados = listZonas[i].censadosVirtual + totalCensados;
+				totalCensados = listZonas[i].censadosInSitu + totalCensados;
+		}
+	}
+
+	return totalCensados;
+
+}
+
+
+
+
