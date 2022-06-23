@@ -31,8 +31,8 @@ int main(void) {
 	int cargaForzadaZonas;
 
 	eCensistas censistas[LEN] = {{2,"Sabrina", "Donat", 04,05,1993, 29, "Av Brown ", 633,1,0}, {1,"Andre", "Luizaga", 20,03,2020, 30, "iriarte", 1944,1,0},
-			{3,"Mariano", "Cañete", 20,03,2020, 30, "California", 2050,3,0},{4,"Susana", "Rojas", 20,03,2020, 30, "Rocha", 2050,3,0}};
-	eZonas zonas[LENZONAS] = {{1,3,"Iriarte", "Herrera", "Montes De Oca", "California",2,10,20,0,2,0}, {2,1,"Montes de oca", "Azara", "California", "Rocha",3,50,10,50,2,0},
+			{3,"Mariano", "Cañete", 20,03,2020, 30, "California", 2050,1,0},{4,"Susana", "Rojas", 20,03,2020, 30, "Rocha", 2050,3,0}};
+	eZonas zonas[LENZONAS] = {{1,3,"Iriarte", "Herrera", "Montes De Oca", "California",2,10,20,0,1,0}, {2,1,"Montes de oca", "Azara", "California", "Rocha",3,50,10,50,2,0},
 			{3,0,"Suarez", "Vieytes", "Rocha", "Azara",2,20,100,30,2,0}};
 
 	idCensista = 0;
@@ -81,7 +81,9 @@ int main(void) {
 							case 1:
 								censistasCargados = CargarCensistas(censistas, LEN, &idCensista, REIN);
 								break;
-							case 2: cargaForzadaCensistas = CargaForzadaCensistas(censistas, LEN, &idCensista);
+							case 2:
+								cargaForzadaCensistas = CargaForzadaCensistas(censistas, LEN, &idCensista);
+								break;
 							}
 							break;
 						case 2:
@@ -138,7 +140,7 @@ int main(void) {
 							}
 							break;
 						case 9:
-							GetNumberWithRange("1.Cantidad de censistas en estado Activo con zona Pendiente.\n2. Informar nombre de localidad con más casas ausentes.\n3.Informar el censista cuya zona fue la más censada.\n4.Mostrar el listado de censistas ordenados alfabéticamente por apellido y nombre.\nElija la forma de carga: ", "\nOpcion invalida, vuelva a intentarlo: ", REIN, 1, 4, &opcionSubMenu);
+							GetNumberWithRange("1.Cantidad de censistas en estado Activo con zona Pendiente.\n2. Informar nombre de localidad con más casas ausentes.\n3.Informar el censista cuya zona fue la más censada.\n4.Mostrar el listado de censistas ordenados alfabéticamente por apellido y nombre.\nElija un informe: ", "\nOpcion invalida, vuelva a intentarlo: ", REIN, 1, 4, &opcionSubMenu);
 							switch(opcionSubMenu){
 							case 1:
 								CantidadDeCensistasPorEstadoYZona(censistas, LEN, zonas, LENZONAS, localidades, LENLOCALIDAD);

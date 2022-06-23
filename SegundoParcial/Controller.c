@@ -192,8 +192,8 @@ int controller_removePassenger(LinkedList* pArrayListPassenger)
 				MostrarUnPasajero(auxPassenger);
 				ConfirmarContinuar("\nCONFIRME PARA CONTINUAR.(SI/NO) ", "\nError. Vuelva a intentarlo", &confirma, 3);
 				if(confirma == 1){
-					free(auxPassenger);
 					ll_remove(pArrayListPassenger, index);
+					auxPassenger = NULL;
 					pasajeroEliminado = 1;
 				}
 			}
