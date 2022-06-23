@@ -183,7 +183,10 @@ void Passenger_delete(Passenger* this){
 Passenger* Passenger_new(){
 	Passenger* auxPassenger = NULL;
 	auxPassenger = (Passenger*)malloc(sizeof(Passenger));
-
+		Passenger_setId(auxPassenger, 0);
+		Passenger_setApellido(auxPassenger, "");
+		Passenger_setNombre(auxPassenger, "");
+		Passenger_setCodigoVuelo(auxPassenger, 0);
 	return auxPassenger;
 }
 
