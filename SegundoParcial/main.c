@@ -42,7 +42,10 @@ int main()
     							"7. Ordenar pasajeros\n"
     							"8. Guardar los datos de los pasajeros en el archivo data.csv (modo texto).\n"
     							"9. Guardar los datos de los pasajeros en el archivo data.csv (modo binario)\n"
-    							"10. Salir\n"
+    							"10. Mostrar cantidad de pasajeros por clase\n"
+    							"11. Generar archivo de vuelos\n"
+    							"12. Calcular millas acumuladas por pasajero\n"
+    							"13. Salir\n"
     							"***********************\n"
     							"Ingrese una opcion: ",
 
@@ -59,7 +62,7 @@ int main()
 								"9. Guardar los datos de los pasajeros en el archivo data.csv (modo binario)\n"
 								"10. Salir\n"
     							"***********************\n"
-    							"\nOpcion invalida, vuelva a intentarlo: ", REIN, 1, 10, &opcion);
+    							"\nOpcion invalida, vuelva a intentarlo: ", REIN, 1, 13, &opcion);
     							printf("\n");
     				if (opcionCorrecta == 1) {
     					switch (opcion) {
@@ -104,13 +107,23 @@ int main()
     						controller_saveAsBinary("data.bin", listaPasajeros);
     						datosGuardados = 1;
     					    break;
+    					case 10:
+    						controller_countPassenger(listaPasajeros);
+    					   break;
+    					case 11:
+    						controller_listFilter(listaPasajeros);
+    						break;
+    					case 12:
+    						controller_calcularMillas(listaPasajeros);
+    						break;
     					}
+
     				}else{
-    					opcion = 10;
+    					opcion = 13;
     					printf("\nEl programa finalizo debido a que no se ingreso ninguna opcion valida\n");
     				}
 
-    			} while (opcion != 10 && datosGuardados == 0);
+    			} while (opcion != 13 && datosGuardados == 0);
 
     return 0;
 }

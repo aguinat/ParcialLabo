@@ -9,4 +9,6 @@ int controller_saveAsText(char* path , LinkedList* pArrayListPassenger);
 int controller_saveAsBinary(char* path , LinkedList* pArrayListPassenger);
 int controller_GetMaxId(LinkedList* pArrayListPassenger);
 int controller_saveMaxIdAsText(LinkedList* pArrayListPassenger);
-
+int controller_countPassenger(LinkedList* pArrayListPassenger);
+int controller_listFilter(LinkedList* pArrayListPassenger);
+int controller_calcularMillas(LinkedList* pArrayListPassenger);

@@ -507,9 +507,66 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
 
 }
 
+int ll_count(LinkedList* this, int (*fn)(void* element)){
+	int len;
+	void* auxElement = NULL;
+	int contador;
+
+	contador = 0;
+
+	if(this != NULL && fn != NULL){
+		len = ll_len(this);
+		for(int i= 0; i<len; i++){
+			auxElement = ll_get(this, i);
+			if(fn(auxElement)==1){
+				contador++;
+			}
+		}
+	}
+
+	return contador;
+}
+
+LinkedList* ll_filter(LinkedList* this, int (*fn)(void* element)){
+	LinkedList* listFilter = NULL;
+	void* auxElement = NULL;
+	int len;
+
+	if(this!=NULL && fn != NULL){
+		len = ll_len(this);
+		listFilter = ll_newLinkedList();
+		if(listFilter != NULL && len>0){
+			for (int i = 0; i < len; i++) {
+				auxElement = ll_get(this, i);
+				if (fn(auxElement) == 1) {
+					ll_add(listFilter, auxElement);
+				}
+			}
+		}
+	}
+
+	return listFilter;
+}
 
 
+LinkedList* ll_map(LinkedList* this, void (*fn)(void* element)){
+	void* auxElement = NULL;
+	int len;
 
+	if(this!=NULL && fn != NULL){
+		len = ll_len(this);
+		if(len>0){
+			for (int i = 0; i < len; i++) {
+				auxElement = ll_get(this, i);
+				if(auxElement != NULL){
+					fn(auxElement);
+				}
+			}
+		}
+	}
+
+	return this;
+}
 
 
 

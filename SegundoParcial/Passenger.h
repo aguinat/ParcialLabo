@@ -10,6 +10,7 @@ typedef struct
 	int tipoPasajero;
 	char codigoVuelo[7];
 	int estadoVuelo;
+	int millas;
 
 }Passenger;
 
@@ -38,14 +39,23 @@ int Passenger_getPrecio(Passenger* this,float* precio);
 int Passenger_setEstadoVuelo(Passenger* this,int estadoVuelo);
 int Passenger_getEstadoVuelo(Passenger* this,int* estadoVuelo);
 
+int Passenger_setMillas(Passenger* this,int millas);
+int Passenger_getMillas(Passenger* this,int* millas);
+
 Passenger* Passenger_getFromUser(int* cargaCorrecta, int* id);
 int ModificarDatosPasajero(Passenger* this);
 Passenger* GetPassenger_ById(LinkedList* pArrayListPassenger, int id, int* index);
 void MostrarUnPasajero(Passenger* this);
 
-int Passenger_sortByApellido(Passenger* pasajeroUno, Passenger* pasajeroDos);
-int Passenger_sortByPrecio(Passenger* pasajeroUno, Passenger* pasajeroDos);
-int Passenger_sortByTipoPasajero(Passenger* pasajeroUno, Passenger* pasajeroDos);
-int Passenger_sortByEstadoVuelo(Passenger* pasajeroUno, Passenger* pasajeroDos);
+int Passenger_sortByApellido(void* pasajeroUno, void* pasajeroDos);
+int Passenger_sortByPrecio(void* pasajeroUno, void* pasajeroDos);
+int Passenger_sortByTipoPasajero(void* pasajeroUno, void* pasajeroDos);
+int Passenger_sortByEstadoVuelo(void* pasajeroUno, void* pasajeroDos);
+
+int Passenger_pasajeroFirstClass(void* pasajero);
+int Passenger_pasajeroExecutiveClass(void* pasajero);
+int Passenger_pasajeroEconomyClass(void* pasajero);
+void Passenger_calcularMillas(void* pasajero);
+
 
 #endif /* PASSENGER_H_ */

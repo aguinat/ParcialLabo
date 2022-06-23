@@ -141,7 +141,7 @@ int controller_ListPassenger(LinkedList* pArrayListPassenger)
 	if(pArrayListPassenger!= NULL){
 		lenListPassenger = ll_len(pArrayListPassenger);
 		if(lenListPassenger>0){
-			printf("\n\nDatos del pasajero:\n\n%-5s %-15s %-20s %-20s %-15s %-20s %-20s\n\n","ID", "Nombre", "Apellido", "Codigo Vuelo", "Precio","Tipo Pasajero", "Estado Vuelo");
+			printf("\n\nDatos del pasajero:\n\n%-5s %-15s %-20s %-20s %-15s %-20s %-20s %-20s\n\n","ID", "Nombre", "Apellido", "Codigo Vuelo", "Precio","Tipo Pasajero", "Estado Vuelo", "Millas");
 			for(int i = 0; i< lenListPassenger; i++){
 				passenger = ll_get(pArrayListPassenger, i);
 				if(passenger!= NULL){
@@ -432,5 +432,57 @@ int controller_saveAsBinary(char* path , LinkedList* pArrayListPassenger)
 		}
 	}
     return cargaCorrecta;
+}
+
+
+int controller_countPassenger(LinkedList* pArrayListPassenger){
+	int retorno;
+	int pasajerosFirstClass;
+	int pasajerosEconomyClass;
+	int pasajerosExecutiveClass;
+
+	retorno = 0;
+	if(pArrayListPassenger != NULL){
+		pasajerosFirstClass = ll_count(pArrayListPassenger, Passenger_pasajeroFirstClass);
+		printf("Pasajeros totales de primera clase: %d\n",pasajerosFirstClass );
+		retorno = 1;
+		pasajerosEconomyClass = ll_count(pArrayListPassenger, Passenger_pasajeroEconomyClass);
+		printf("Pasajeros totales de clase economica: %d\n",pasajerosEconomyClass );
+		pasajerosExecutiveClass = ll_count(pArrayListPassenger, Passenger_pasajeroExecutiveClass);
+		printf("Pasajeros totales de clase ejecutiva: %d\n",pasajerosExecutiveClass );
+	}
+
+	return retorno;
+}
+
+int controller_listFilter(LinkedList* pArrayListPassenger){
+	int retorno;
+	LinkedList* listaFiltrada = NULL;
+
+	retorno = 0;
+	if(pArrayListPassenger != NULL){
+		listaFiltrada = ll_filter(pArrayListPassenger, Passenger_pasajeroFirstClass);
+		if(listaFiltrada != NULL){
+			controller_saveAsText("listaFiltrada.csv",listaFiltrada);
+			printf("Lista filtrada por clase y guardada con exito.\n");
+			retorno = 1;
+		}
+	}
+
+
+	return retorno;
+}
+
+int controller_calcularMillas(LinkedList* pArrayListPassenger){
+	int retorno;
+
+	retorno = 0;
+	if(pArrayListPassenger != NULL){
+		ll_map(pArrayListPassenger, Passenger_calcularMillas);
+		controller_ListPassenger(pArrayListPassenger);
+	}
+
+
+	return retorno;
 }
 

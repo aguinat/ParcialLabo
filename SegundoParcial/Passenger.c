@@ -13,6 +13,9 @@
 #define REIN 3
 #define LINEA_ARCHIVO 7
 #define MAX_PRICE 50000
+#define FIRSTCLASS 1
+#define ENCONOMY 2
+#define EXECUTIVE 3
 
 int Passenger_setId(Passenger* this,int id){
 	int setCorrecto;
@@ -174,6 +177,29 @@ int Passenger_getEstadoVuelo(Passenger* this,int* estadoVuelo){
 	return getCorrecto;
 }
 
+int Passenger_setMillas(Passenger* this,int millas){
+	int setCorrecto;
+
+	setCorrecto = 0;
+	if (this != NULL && millas>= 0) {
+		this->millas = millas;
+		setCorrecto = 1;
+	}
+	return setCorrecto;
+}
+
+int Passenger_getMillas(Passenger* this,int* millas){
+	int getCorrecto;
+
+	getCorrecto = 0;
+	if (this != NULL && millas != NULL) {
+		*millas = this->millas;
+		getCorrecto = 1;
+	}
+
+	return getCorrecto;;
+}
+
 void Passenger_delete(Passenger* this){
 	if(this != NULL){
 		free(this);
@@ -187,6 +213,7 @@ Passenger* Passenger_new(){
 		Passenger_setApellido(auxPassenger, "");
 		Passenger_setNombre(auxPassenger, "");
 		Passenger_setCodigoVuelo(auxPassenger, 0);
+		Passenger_setMillas(auxPassenger, 0);
 	return auxPassenger;
 }
 
@@ -295,6 +322,7 @@ void MostrarUnPasajero(Passenger* this){
 	int tipoPasajero;
 	char tipoPasajero_Str[50];
 	int tipoPasajeroValido;
+	int millas;
 
 	if(this!=NULL){
 		Passenger_getId(this, &id);
@@ -304,12 +332,13 @@ void MostrarUnPasajero(Passenger* this){
 		Passenger_getPrecio(this, &precio);
 		Passenger_getTipoPasajero(this, &tipoPasajero);
 		Passenger_getEstadoVuelo(this, &estadoVuelo);
+		Passenger_getMillas(this, &millas);
 
 		if(tipoPasajero>0 && estadoVuelo>0){
 			estadoVueloValido = getStr_StatusFlight(estadoVuelo_Str, estadoVuelo);
 			tipoPasajeroValido = getStr_PassegerType(tipoPasajero_Str, tipoPasajero);
 			if(estadoVueloValido == 1 && tipoPasajeroValido == 1){
-				printf("%-5d %-15s %-20s %-20s %-15.2f %-20s %-20s\n", id, nombre, apellido, codigoVuelo, precio, tipoPasajero_Str, estadoVuelo_Str);
+				printf("%-5d %-15s %-20s %-20s %-15.2f %-20s %-20s %-20d\n", id, nombre, apellido, codigoVuelo, precio, tipoPasajero_Str, estadoVuelo_Str, millas);
 			}
 		}
 	}
@@ -455,7 +484,7 @@ Passenger* GetPassenger_ById(LinkedList* pArrayListPassenger, int id, int* index
 }
 
 
-int Passenger_sortByApellido(Passenger* pasajeroUno, Passenger* pasajeroDos){
+int Passenger_sortByApellido(void* pasajeroUno, void* pasajeroDos){
 	int retorno;
 	char auxParamUno[100];
 	char auxParamDos[100];
@@ -476,7 +505,7 @@ int Passenger_sortByApellido(Passenger* pasajeroUno, Passenger* pasajeroDos){
 	return retorno;
 }
 
-int Passenger_sortByPrecio(Passenger* pasajeroUno, Passenger* pasajeroDos){
+int Passenger_sortByPrecio(void* pasajeroUno, void* pasajeroDos){
 	int retorno;
 	float precio1;
 	float precio2;
@@ -495,7 +524,7 @@ int Passenger_sortByPrecio(Passenger* pasajeroUno, Passenger* pasajeroDos){
 	return retorno;
 }
 
-int Passenger_sortByTipoPasajero(Passenger* pasajeroUno, Passenger* pasajeroDos){
+int Passenger_sortByTipoPasajero(void* pasajeroUno, void* pasajeroDos){
 	int retorno;
 	int tipoPasajeroUno;
 	int tipoPasajeroDos;
@@ -514,7 +543,7 @@ int Passenger_sortByTipoPasajero(Passenger* pasajeroUno, Passenger* pasajeroDos)
 	return retorno;
 }
 
-int Passenger_sortByEstadoVuelo(Passenger* pasajeroUno, Passenger* pasajeroDos){
+int Passenger_sortByEstadoVuelo(void* pasajeroUno, void* pasajeroDos){
 	int retorno;
 	int estadoVueloUno;
 	int estadoVueloDos;
@@ -532,3 +561,79 @@ int Passenger_sortByEstadoVuelo(Passenger* pasajeroUno, Passenger* pasajeroDos){
 
 	return retorno;
 }
+
+int Passenger_pasajeroFirstClass(void* pasajero){
+	int retorno;
+	int tipoPasajero;
+	int pasajeroFirstClass;
+
+	pasajeroFirstClass = 1;
+	retorno = 0;
+
+	if(pasajero != NULL){
+		Passenger_getTipoPasajero(pasajero, &tipoPasajero);
+		if(pasajeroFirstClass == tipoPasajero ){
+			retorno = 1;
+		}
+	}
+
+	return retorno;
+}
+
+int Passenger_pasajeroEconomyClass(void* pasajero){
+	int retorno;
+	int tipoPasajero;
+	int pasajeroEconomyClasss;
+
+	pasajeroEconomyClasss = ENCONOMY;
+	retorno = 0;
+
+	if(pasajero != NULL){
+		Passenger_getTipoPasajero(pasajero, &tipoPasajero);
+		if(pasajeroEconomyClasss == tipoPasajero ){
+			retorno = 1;
+		}
+	}
+
+	return retorno;
+}
+
+int Passenger_pasajeroExecutiveClass(void* pasajero){
+	int retorno;
+	int tipoPasajero;
+	int pasajeroExcutive;
+
+	pasajeroExcutive = EXECUTIVE;
+	retorno = 0;
+
+	if(pasajero != NULL){
+		Passenger_getTipoPasajero(pasajero, &tipoPasajero);
+		if(pasajeroExcutive == tipoPasajero ){
+			retorno = 1;
+		}
+	}
+
+	return retorno;
+}
+
+void Passenger_calcularMillas(void* pasajero){
+	float auxPrecio;
+	float precioPorMilla;
+	float millas;
+
+	millas = 0;
+	precioPorMilla = 100;
+	if(pasajero != NULL){
+		Passenger_getPrecio(pasajero, &auxPrecio);
+		millas = auxPrecio/precioPorMilla;
+		if(Passenger_pasajeroFirstClass(pasajero)==1){
+			millas = millas*2;
+		}
+		if(Passenger_pasajeroExecutiveClass(pasajero)==1){
+			millas = millas * 3;
+		}
+
+		Passenger_setMillas(pasajero, millas);
+	}
+}
+
